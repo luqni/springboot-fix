@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Enigma 1</title>
+    </head>
+    <body>
+        <h1>Signup Customer</h1>
+        <form method="POST" action="http://localhost:8080/Customer/post" enctype='application/json'> 
+            <table>
+                <tr>
+                    <td>First Name</td>
+                    <td>:</td>
+                    <td><input type="text" name="firstName" /></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>:</td>
+                    <td><input type="text" name="lastName" /></td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td>:</td>
+                    <td><input type="date" name="birthDate" /></td>
+                </tr>
+                <tr>
+                    <td>Phone Number</td>
+                    <td>:</td>
+                    <td><input type="text" name="phoneNumber" onkeypress='validateNumber(event)' /></td>
+                </tr>
+                <tr>
+                    <td>Phone Type</td>
+                    <td>:</td>
+                    <td>
+                        <select name='phoneType'>
+                            <option selected>Android</option>
+                            <option>iPhone</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+            <button type="button" onclick="window.location.href='/'">Back to Home</button>
+        </form> 
+    </body>
+</html>

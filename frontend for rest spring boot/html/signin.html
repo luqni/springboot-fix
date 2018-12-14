@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Enigma 1</title>
+        <script src="/js/postrequest.js"></script>
+      <script src="/js/getrequest.js"></script>
+    </head>
+<body>
+<form id="customerForm" action="http://localhost:8080/" method="POST">
+    <table align="center" border="1" width="25%">
+        <tr style="background-color:beige;">
+            <td>
+                    <h2 align="center">SignIn Customer</h2>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                    <br>
+                    
+                    <label>User Name :</label> 
+                    <input type="text" pattern="[A-Za-z ]+" placeholder="Enter Username" name="username" id="username">
+                    <br><br>
+                    <label>Password  :</label> 
+                    <input type="password" pattern="[A-Za-z ]+" placeholder="Enter Password" name="password" value="" id="password"> 
+                    <br><br>
+                    
+                    <label> </label> 
+                    
+            </td>
+            <br>
+                
+        </tr>
+        <tr>
+            <td align="center">
+                    <input type="submit" style="background-color:green;">
+                    <input type="reset" style="background-color:yellow;">
+            </td>
+        </tr>
+        <tr>
+                <td align="center">
+                        <button><a href="index.html">Back Menu</a></button>
+                        
+                </td>
+            </tr>
+            
+    </table>
+</form>
+<script>
+    $("#customerForm").submit(function(event){
+	event.preventDefault(); //prevent default action 
+	var post_url = $(this).attr("action"); //get form action url
+	var request_method = $(this).attr("method"); //get form GET/POST method
+	var form_data = $(this).serialize(); //Encode form elements for submission
+	
+	$.ajax({
+		url : post_url,
+		type: request_method,
+		data : form_data
+	}).done(function(response){ //
+		$("#server-results").html(response);
+	});
+});
+</script>
+
+</body>
+</html>

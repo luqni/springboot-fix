@@ -1,0 +1,125 @@
+<html>
+    <head>
+        <title>Enigma 1</title>
+        <!-- <script src="postrequest.js"></script> -->
+
+      <!-- <script src="/js/getrequest.js"></script> -->
+    </head>
+<body>
+<form id="customerForm">
+    <table align="center" border="1" width="25%">
+        <tr style="background-color:beige;">
+            <td>
+                    <h2 align="center">SignUp Customer1</h2>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                    <br>
+                    <label>First Name :</label> 
+                    <input type="text" pattern="[A-Za-z ]+" placeholder="Enter First Name" name="firstname" value="" id="firstname">
+                    <br><br>
+                    <label>Last Name :</label> 
+                    <input type="text" id="firtsname" pattern="[A-Za-z ]+" placeholder="Enter Last Name" name="lastname" value="" id="lastname">
+                    <br><br>
+                    <label>User Name :</label> 
+                    <input type="text" pattern="[A-Za-z ]+" placeholder="Enter Username" name="username" id="username">
+                    <br><br>
+                    <label>Password  :</label> 
+                    <input type="password" pattern="[A-Za-z ]+" placeholder="Enter Password" name="password" value="" id="password"> 
+                    <br><br>
+                    <label>Phone Type  :</label> 
+                    <select name="phoneType" id="phonetype">
+                        <option  value="Android">Android</option>
+                        <option value="Iphone">Iphone</option>
+                    </select>
+                    <br><br>
+                    <label>Phone Number  :</label> 
+                    <input type="text" pattern="[0-9]+" placeholder="Enter Phone Number" name="phonenumber" value=""> 
+                    <br><br>
+                    <label> Birth Date :</label>
+                    <input type="date" id="start" name="BirthDate" value="0000-00-00">
+                    <br><br>
+                    <label> </label> 
+                    
+            </td>
+            <br>
+                
+        </tr>
+        <tr>
+            <td align="center">
+                    <input type="submit" style="background-color:green;">
+                    <input type="reset" style="background-color:yellow;">
+            </td>
+        </tr>
+        <tr>
+                <td align="center">
+                        <button><a href="index.html">Back Menu</a></button>
+                        
+                </td>
+            </tr>
+            
+    </table>
+</form>
+<script type="text/javascript">
+
+$( document ).ready(function() {
+    
+    // SUBMIT FORM
+    $("#customerForm").submit(function(event) {
+        // Prevent the form from submitting via the browser.
+        event.preventDefault();
+        ajaxPost();
+    });
+    
+    
+    function ajaxPost(){
+        
+        // PREPARE FORM DATA
+        var formData = {
+            username: $("#username").val(),
+            password: $("#password").val(),
+            firtsname: $("#firstname").val(),
+            lastname: $("#lastname").val(),
+            birthdate: $("#birthdate").val(),
+            phonetype: $("#phonetype").val(),
+            phonenumber: $("#phonenumber").val()
+        }
+        
+        // DO POST
+        $.ajax({
+            type : "POST",
+            contentType : "application/json",
+            url : window.location + "localhost:8080/Customer/customer",
+            data : JSON.stringify(formData),
+            dataType : 'json',
+            success : function(result) {
+                if(result.status == "Done"){
+                    $("#postResultDiv").html("<p style='background-color:#7FA7B0; color:white; padding:20px 20px 20px 20px'>" + 
+                                                "Post Successfully! <br>" +
+                                                "---> Customer's Info: FirstName = " + 
+                                                result.data.firstname + " ,LastName = " + result.data.lastname + "</p>");
+                }else{
+                    $("#postResultDiv").html("<strong>Error</strong>");
+                }
+                console.log(result);
+            },
+            error : function(e) {
+                alert("Error!")
+                console.log("ERROR: ", e);
+            }
+        });
+        
+        // Reset FormData after Posting
+        resetData();
+
+    }
+    
+    function resetData(){
+        $("#firstname").val("");
+        $("#lastname").val("");
+    }
+})
+</script>
+</body>
+</html>
